@@ -1,20 +1,29 @@
 import "./App.css";
-
-import { useCatFact } from "./hooks/useCatFact";
+import { useCatImage } from "./hooks/useCatImage.js";
+import { useCatFact } from "./hooks/useCatFact.js";
 
 function App() {
   const { fact, refreshFact } = useCatFact();
+  const { imageUrl } = useCatImage({ fact });
 
-  const handleClick = () => {
+  const handleClick = async () => {
     refreshFact();
   };
 
   return (
-    <div>
+    <main>
       <h1>App de gatitos</h1>
-      <button onClick={handleClick}>Buscar</button>
+
+      <button onClick={handleClick}>Get new fact</button>
+
       {fact && <p>{fact}</p>}
-    </div>
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt={`Image extracted using the first rhee words for ${fact}`}
+        />
+      )}
+    </main>
   );
 }
 
