@@ -1,24 +1,18 @@
-import { useState } from "react";
 import "./App.css";
 
-const RANDOM_FACT_URL = "https://catfact.ninja/facts";
+import { useCatFact } from "./hooks/useCatFact";
 
 function App() {
-  const { fact, setFact } = useState();
+  const { fact, refreshFact } = useCatFact();
 
-  const getFact = () => {
-    fetch(RANDOM_FACT_URL)
-      .then((res) => res.json())
-      .then((response) => {
-        const { fact } = response;
-        setFact(fact);
-      });
+  const handleClick = () => {
+    refreshFact();
   };
 
   return (
     <div>
       <h1>App de gatitos</h1>
-      <button onClick={getFact}>Buscar</button>
+      <button onClick={handleClick}>Buscar</button>
       {fact && <p>{fact}</p>}
     </div>
   );
